@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("server is running................");
+  res.send("Gardener's Hub Server is running.................");
 });
 
 app.listen(port, () => {
@@ -37,12 +37,37 @@ const client = new MongoClient(uri, {
   },
 });
 
+// Database collections
+
+let userCollection;
+let gardenersCollection;
+
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
-    const userCollection = client.db("gardensdb").collection("users");
+    // const userCollection = client.db("gardensdb").collection("users");
+    // const gardenersCollection = db.collection("gardeners");
+    // Initialize collections
+
+    const db = client.db("gardensdb");
+    userCollection = db.collection("users");
+    gardenersCollection = db.collection("gardeners");
     // start APIs backend
+
+    // ✅ Get 6 active gardeners
+    app.get("/gardeners/active", async (req, res) => {
+      try {
+        const result = await gardenersCollection
+          .find({ status: "active" })
+          .limit(6)
+          .toArray();
+        res.send(result);
+      } catch (error) {
+        console.error("Failed to fetch gardeners:", error);
+        res.status(500).send("Internal Server Error");
+      }
+    });
 
     // User related all database APIs
 

@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Sarah Jahan",
+    "specialty": "Organic Vegetables",
+    "experience": "5 years",
+    "location": "Portland, OR",
+    "image": "https://i.ibb.co/V0TcxnCL/ww.webp",
+    "status": "active",
+    "bio": "Passionate about sustainable farming and organic practices."
+  },
+  {
+    "name": "Michael Bloom",
+    "specialty": "Tropical Plants",
+    "experience": "8 years",
+    "location": "Miami, FL",
+    "image": "https://i.ibb.co/KxYjQrLM/man1.jpg",
+    "status": "active",
+    "bio": "Expert in exotic plants and indoor gardening solutions."
+  },
+  {
+    "name": "Emma Rose",
+    "specialty": "Flower Gardens",
+    "experience": "3 years",
+    "location": "Seattle, WA",
+    "image": "https://i.ibb.co/bjBjzvjC/11.webp",
+    "status": "active",
+    "bio": "Specializing in perennial flower gardens and landscape design."
+  },
+  {
+    "name": "David Leaf",
+    "specialty": "Hydroponics",
+    "experience": "6 years",
+    "location": "San Francisco, CA",
+    "image": "https://i.ibb.co/qZN8yrd/ma2.jpg",
+    "status": "active",
+    "bio": "Urban gardening enthusiast with hydroponic expertise."
+  },
+  {
+    "name": "Lisa Petal",
+    "specialty": "Herb Gardens",
+    "experience": "4 years",
+    "location": "Austin, TX",
+    "image": "https://i.ibb.co/B5H1Fn9j/122.jpg",
+    "status": "active",
+    "bio": "Creating culinary and medicinal herb gardens for urban spaces."
+  },
+  {
+    "name": "James Root",
+    "specialty": "Bonsai Trees",
+    "experience": "10 years",
+    "location": "Denver, CO",
+    "image": "https://i.ibb.co/kgXZJ0kM/maxresdefault.jpg",
+    "status": "active",
+    "bio": "Master bonsai artist with decades of experience."
+  },
+  {
+    "name": "Olivia Stem",
+    "specialty": "Succulents",
+    "experience": "2 years",
+    "location": "Phoenix, AZ",
+    "image": "https://i.ibb.co/hJL83kvS/gardener7.jpg",
+    "status": "inactive",
+    "bio": "Succulent collector and propagation specialist."
+  },
+  {
+    "name": "Thomas Branch",
+    "specialty": "Tree Care",
+    "experience": "7 years",
+    "location": "Chicago, IL",
+    "image": "https://i.ibb.co/fdQGfQpp/gardener8.jpg",
+    "status": "inactive",
+    "bio": "Arborist focused on urban tree health and preservation."
+  },
+  {
+    "name": "Sophia Vine",
+    "specialty": "Vertical Gardens",
+    "experience": "3 years",
+    "location": "New York, NY",
+    "image": "https://i.ibb.co/tyVjVpj/gardener9.jpg",
+    "status": "inactive",
+    "bio": "Creating green walls for small urban spaces."
+  },
+  {
+    "name": "Henry Moss",
+    "specialty": "Moss Gardens",
+    "experience": "5 years",
+    "location": "Portland, ME",
+    "image": "https://i.ibb.co/YBJ4x9TL/gardener10.jpg",
+    "status": "inactive",
+    "bio": "Japanese-inspired moss garden designer."
+  }
+]
