@@ -38,9 +38,9 @@ const client = new MongoClient(uri, {
 });
 
 // Database collections
-
 let userCollection;
 let gardenersCollection;
+let tipsCollection;
 
 async function run() {
   try {
@@ -53,9 +53,11 @@ async function run() {
     const db = client.db("gardensdb");
     userCollection = db.collection("users");
     gardenersCollection = db.collection("gardeners");
+    tipsCollection = db.collection("tips");
+
     // start APIs backend
 
-    // ✅ Get 6 active gardeners
+    //  ========== ✅ Get 6 active gardeners  ==========
     app.get("/gardeners/active", async (req, res) => {
       try {
         const result = await gardenersCollection
@@ -69,7 +71,7 @@ async function run() {
       }
     });
 
-    // User related all database APIs
+    // ========== USERS API ENDPOINTS ========== //
 
     // read user FIND
     app.get("/users", async (req, res) => {
@@ -115,6 +117,82 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       const result = await userCollection.deleteOne(query);
       res.send(result);
+    });
+
+    // ========== TIPS API ENDPOINTS ========== //
+    app.get("/tips/trending", async (req, res) => {
+      try {
+        const result = await tipsCollection
+          .find({ trending: true })
+          .sort({ views: -1 })
+          .limit(6)
+          .toArray();
+        res.send(result);
+      } catch (error) {
+        console.error("Failed to fetch trending tips:", error);
+        res.status(500).send("Internal Server Error");
+      }
+    });
+
+    app.get("/tips/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+
+        // Increment views when a tip is fetched
+        await tipsCollection.updateOne(query, { $inc: { views: 1 } });
+
+        const result = await tipsCollection.findOne(query);
+        res.send(result);
+      } catch (error) {
+        console.error("Failed to fetch tip:", error);
+        res.status(500).send("Internal Server Error");
+      }
+    });
+
+    app.post("/tips", async (req, res) => {
+      try {
+        const newTip = {
+          ...req.body,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          views: 0,
+          likes: 0,
+          trending: false,
+        };
+        const result = await tipsCollection.insertOne(newTip);
+        res.send(result);
+      } catch (error) {
+        console.error("Failed to create tip:", error);
+        res.status(500).send("Internal Server Error");
+      }
+    });
+
+    app.patch("/tips/:id/like", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const update = { $inc: { likes: 1 } };
+        const result = await tipsCollection.updateOne(query, update);
+        res.send(result);
+      } catch (error) {
+        console.error("Failed to update tip likes:", error);
+        res.status(500).send("Internal Server Error");
+      }
+    });
+
+    app.get("/tips/category/:category", async (req, res) => {
+      try {
+        const category = req.params.category;
+        const result = await tipsCollection
+          .find({ category: new RegExp(category, "i") })
+          .limit(10)
+          .toArray();
+        res.send(result);
+      } catch (error) {
+        console.error("Failed to fetch tips by category:", error);
+        res.status(500).send("Internal Server Error");
+      }
     });
 
     // Send a ping to confirm a successful connection
