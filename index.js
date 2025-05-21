@@ -327,8 +327,15 @@ async function run() {
     });
 
     // Get top trending tips (most liked)
-    app.get("/tips/trending", async (req, res) => {
+    app.get("/tip/trend", async (req, res) => {
       try {
+        if (!tipsCollection) {
+          return res.status(500).json({
+            success: false,
+            message: "Database not connected",
+          });
+        }
+
         const result = await tipsCollection
           .find({ availability: "Public" })
           .sort({ totalLiked: -1 })
@@ -344,6 +351,7 @@ async function run() {
         res.status(500).json({
           success: false,
           message: "Failed to fetch trending tips",
+          error: error.message,
         });
       }
     });
