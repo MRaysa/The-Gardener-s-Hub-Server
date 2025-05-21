@@ -356,6 +356,33 @@ async function run() {
       }
     });
 
+    //=============My Tips page ======
+
+    app.get("/mytips/:email", async (req, res) => {
+      try {
+        const emailRegex = new RegExp(`^${req.params.email}$`, "i");
+        const result = await tipsCollection
+          .find({
+            $or: [
+              { "author.email": { $regex: emailRegex } },
+              { email: { $regex: emailRegex } },
+            ],
+          })
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        res.json({
+          success: true,
+          data: result,
+        });
+      } catch (error) {
+        console.error("Failed to fetch user tips:", error);
+        res.status(500).json({
+          success: false,
+          message: "Failed to fetch user tips",
+        });
+      }
+    });
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     // console.log(
