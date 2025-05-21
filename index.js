@@ -128,78 +128,143 @@ async function run() {
     });
 
     // ========== TIPS API ENDPOINTS ========== //
-    app.get("/tips/trending", async (req, res) => {
+
+    // Create tip
+    app.post("/tips", async (req, res) => {
       try {
-        const result = await tipsCollection
-          .find({ trending: true })
-          .sort({ views: -1 })
-          .limit(6)
-          .toArray();
-        res.send(result);
+        const tip = req.body;
+        const result = await tipsCollection.insertOne(tip);
+        res.status(201).json({
+          success: true,
+          message: "Tip created successfully",
+          data: result,
+        });
       } catch (error) {
-        console.error("Failed to fetch trending tips:", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({
+          success: false,
+          message: "Failed to create tip",
+          error: error.message,
+        });
       }
     });
 
+    // Get all public tips
+    app.get("/tips/public", async (req, res) => {
+      try {
+        const result = await tipsCollection
+          .find({ availability: "Public" })
+          .toArray();
+        res.status(200).json({
+          success: true,
+          data: result,
+        });
+      } catch (error) {
+        res.status(500).json({
+          success: false,
+          message: "Failed to fetch public tips",
+          error: error.message,
+        });
+      }
+    });
+
+    // Get user's tips
+    app.get("/tips/user/:email", async (req, res) => {
+      try {
+        const email = req.params.email;
+        const result = await tipsCollection
+          .find({ "user.email": email })
+          .toArray();
+        res.status(200).json({
+          success: true,
+          data: result,
+        });
+      } catch (error) {
+        res.status(500).json({
+          success: false,
+          message: "Failed to fetch user tips",
+          error: error.message,
+        });
+      }
+    });
+
+    // Get single tip
     app.get("/tips/:id", async (req, res) => {
       try {
         const id = req.params.id;
-        const query = { _id: new ObjectId(id) };
-
-        // Increment views when a tip is fetched
-        await tipsCollection.updateOne(query, { $inc: { views: 1 } });
-
-        const result = await tipsCollection.findOne(query);
-        res.send(result);
+        const result = await tipsCollection.findOne({ _id: new ObjectId(id) });
+        if (!result) {
+          return res.status(404).json({
+            success: false,
+            message: "Tip not found",
+          });
+        }
+        res.status(200).json({
+          success: true,
+          data: result,
+        });
       } catch (error) {
-        console.error("Failed to fetch tip:", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({
+          success: false,
+          message: "Failed to fetch tip",
+          error: error.message,
+        });
       }
     });
 
-    app.post("/tips", async (req, res) => {
-      try {
-        const newTip = {
-          ...req.body,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          views: 0,
-          likes: 0,
-          trending: false,
-        };
-        const result = await tipsCollection.insertOne(newTip);
-        res.send(result);
-      } catch (error) {
-        console.error("Failed to create tip:", error);
-        res.status(500).send("Internal Server Error");
-      }
+    // read tips FIND
+    app.get("/tips", async (req, res) => {
+      // const result = await gardenersCollection.find().toArray();
+      const cursor = tipsCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
     });
 
-    app.patch("/tips/:id/like", async (req, res) => {
+    // Update tip
+    app.put("/tips/:id", async (req, res) => {
       try {
         const id = req.params.id;
-        const query = { _id: new ObjectId(id) };
-        const update = { $inc: { likes: 1 } };
-        const result = await tipsCollection.updateOne(query, update);
-        res.send(result);
+        const tip = req.body;
+        const result = await tipsCollection.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: tip }
+        );
+        res.status(200).json({
+          success: true,
+          message: "Tip updated successfully",
+          data: result,
+        });
       } catch (error) {
-        console.error("Failed to update tip likes:", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({
+          success: false,
+          message: "Failed to update tip",
+          error: error.message,
+        });
       }
     });
 
-    app.get("/tips/category/:category", async (req, res) => {
+    // Delete tip
+    app.delete("/tips/:id", async (req, res) => {
       try {
-        const category = req.params.category;
-        const result = await tipsCollection
-          .find({ category: new RegExp(category, "i") })
-          .limit(10)
-          .toArray();
-        res.send(result);
+        const id = req.params.id;
+        const result = await tipsCollection.deleteOne({
+          _id: new ObjectId(id),
+        });
+        if (result.deletedCount === 0) {
+          return res.status(404).json({
+            success: false,
+            message: "Tip not found",
+          });
+        }
+        res.status(200).json({
+          success: true,
+          message: "Tip deleted successfully",
+        });
       } catch (error) {
-        console.error("Failed to fetch tips by category:", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({
+          success: false,
+          message: "Failed to delete tip",
+          error: error.message,
+        });
       }
     });
 
