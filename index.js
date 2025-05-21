@@ -170,7 +170,9 @@ async function run() {
     app.get("/tips/public", async (req, res) => {
       try {
         const result = await tipsCollection
-          .find({ status: "public" })
+          .find({
+            $or: [{ availability: "Public" }, { availability: "public" }],
+          })
           .sort({ createdAt: -1 })
           .toArray();
 
