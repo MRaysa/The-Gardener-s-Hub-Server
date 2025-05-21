@@ -6,7 +6,10 @@
     "location": "Portland, OR",
     "image": "https://i.ibb.co/V0TcxnCL/ww.webp",
     "status": "active",
-    "bio": "Passionate about sustainable farming and organic practices."
+    "bio": "Passionate about sustainable farming and organic practices.",
+    "age": 32,
+    "gender": "female",
+    "totalSharedTips": 28
   },
   {
     "name": "Michael Bloom",
@@ -15,7 +18,10 @@
     "location": "Miami, FL",
     "image": "https://i.ibb.co/KxYjQrLM/man1.jpg",
     "status": "active",
-    "bio": "Expert in exotic plants and indoor gardening solutions."
+    "bio": "Expert in exotic plants and indoor gardening solutions.",
+    "age": 45,
+    "gender": "male",
+    "totalSharedTips": 42
   },
   {
     "name": "Emma Rose",
@@ -24,7 +30,10 @@
     "location": "Seattle, WA",
     "image": "https://i.ibb.co/bjBjzvjC/11.webp",
     "status": "active",
-    "bio": "Specializing in perennial flower gardens and landscape design."
+    "bio": "Specializing in perennial flower gardens and landscape design.",
+    "age": 27,
+    "gender": "female",
+    "totalSharedTips": 15
   },
   {
     "name": "David Leaf",
@@ -33,7 +42,10 @@
     "location": "San Francisco, CA",
     "image": "https://i.ibb.co/qZN8yrd/ma2.jpg",
     "status": "active",
-    "bio": "Urban gardening enthusiast with hydroponic expertise."
+    "bio": "Urban gardening enthusiast with hydroponic expertise.",
+    "age": 38,
+    "gender": "male",
+    "totalSharedTips": 37
   },
   {
     "name": "Lisa Petal",
@@ -42,7 +54,10 @@
     "location": "Austin, TX",
     "image": "https://i.ibb.co/B5H1Fn9j/122.jpg",
     "status": "active",
-    "bio": "Creating culinary and medicinal herb gardens for urban spaces."
+    "bio": "Creating culinary and medicinal herb gardens for urban spaces.",
+    "age": 29,
+    "gender": "female",
+    "totalSharedTips": 23
   },
   {
     "name": "James Root",
@@ -51,7 +66,10 @@
     "location": "Denver, CO",
     "image": "https://i.ibb.co/kgXZJ0kM/maxresdefault.jpg",
     "status": "active",
-    "bio": "Master bonsai artist with decades of experience."
+    "bio": "Master bonsai artist with decades of experience.",
+    "age": 52,
+    "gender": "male",
+    "totalSharedTips": 89
   },
   {
     "name": "Olivia Stem",
@@ -60,7 +78,10 @@
     "location": "Phoenix, AZ",
     "image": "https://i.ibb.co/hJL83kvS/gardener7.jpg",
     "status": "inactive",
-    "bio": "Succulent collector and propagation specialist."
+    "bio": "Succulent collector and propagation specialist.",
+    "age": 24,
+    "gender": "female",
+    "totalSharedTips": 8
   },
   {
     "name": "Thomas Branch",
@@ -69,7 +90,10 @@
     "location": "Chicago, IL",
     "image": "https://i.ibb.co/fdQGfQpp/gardener8.jpg",
     "status": "inactive",
-    "bio": "Arborist focused on urban tree health and preservation."
+    "bio": "Arborist focused on urban tree health and preservation.",
+    "age": 41,
+    "gender": "male",
+    "totalSharedTips": 31
   },
   {
     "name": "Sophia Vine",
@@ -78,7 +102,10 @@
     "location": "New York, NY",
     "image": "https://i.ibb.co/tyVjVpj/gardener9.jpg",
     "status": "inactive",
-    "bio": "Creating green walls for small urban spaces."
+    "bio": "Creating green walls for small urban spaces.",
+    "age": 30,
+    "gender": "female",
+    "totalSharedTips": 12
   },
   {
     "name": "Henry Moss",
@@ -87,6 +114,9 @@
     "location": "Portland, ME",
     "image": "https://i.ibb.co/YBJ4x9TL/gardener10.jpg",
     "status": "inactive",
-    "bio": "Japanese-inspired moss garden designer."
+    "bio": "Japanese-inspired moss garden designer.",
+    "age": 47,
+    "gender": "male",
+    "totalSharedTips": 19
   }
 ]

@@ -71,6 +71,14 @@ async function run() {
       }
     });
 
+    // read gardeners FIND
+    app.get("/gardeners", async (req, res) => {
+      // const result = await gardenersCollection.find().toArray();
+      const cursor = gardenersCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     // ========== USERS API ENDPOINTS ========== //
 
     // read user FIND
