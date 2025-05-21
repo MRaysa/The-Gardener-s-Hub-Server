@@ -301,40 +301,49 @@ async function run() {
     // Like a tip
     app.patch("/tips/:id/like", async (req, res) => {
       try {
-        const tip = await tipsCollection.findOne({
-          _id: new ObjectId(req.params.id),
-        });
+        const result = await tipsCollection.updateOne(
+          { _id: new ObjectId(req.params.id) },
+          { $inc: { totalLiked: 1 } }
+        );
 
-        if (!tip) {
+        if (result.matchedCount === 0) {
           return res.status(404).json({
             success: false,
             message: "Tip not found",
           });
         }
 
-        // Check if user is trying to like their own tip
-        if (tip.author.email === req.body.userEmail) {
-          return res.status(400).json({
-            success: false,
-            message: "You can't like your own tip",
-          });
-        }
-
-        const result = await tipsCollection.updateOne(
-          { _id: new ObjectId(req.params.id) },
-          { $inc: { likes: 1 } }
-        );
-
         res.json({
           success: true,
           message: "Tip liked successfully",
-          data: result,
         });
       } catch (error) {
         console.error("Failed to like tip:", error);
         res.status(500).json({
           success: false,
           message: "Failed to like tip",
+        });
+      }
+    });
+
+    // Get top trending tips (most liked)
+    app.get("/tips/trending", async (req, res) => {
+      try {
+        const result = await tipsCollection
+          .find({ availability: "Public" })
+          .sort({ totalLiked: -1 })
+          .limit(6)
+          .toArray();
+
+        res.json({
+          success: true,
+          data: result,
+        });
+      } catch (error) {
+        console.error("Failed to fetch trending tips:", error);
+        res.status(500).json({
+          success: false,
+          message: "Failed to fetch trending tips",
         });
       }
     });
